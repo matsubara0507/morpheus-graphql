@@ -12,7 +12,12 @@ where
 import qualified Data.Aeson as Aeson
   ( Value (..),
   )
-import Data.HashMap.Lazy (toList)
+import qualified Data.Aeson.Key as Key
+  ( toText,
+  )
+import qualified Data.Aeson.KeyMap as KM
+  ( toList,
+  )
 import Data.Morpheus.Ext.Result
   ( GQLResult,
   )
@@ -71,7 +76,7 @@ parseRequest GQLRequest {query, variables} =
     (toLBS query)
   where
     toVariables :: Maybe Aeson.Value -> Variables
-    toVariables (Just (Aeson.Object x)) = unsafeFromList $ toMorpheusValue <$> toList x
+    toVariables (Just (Aeson.Object x)) = unsafeFromList $ toMorpheusValue <$> KM.toList x
       where
-        toMorpheusValue (key, value) = (packName key, replaceValue value)
+        toMorpheusValue (key, value) = (packName (Key.toText key), replaceValue value)
     toVariables _ = empty

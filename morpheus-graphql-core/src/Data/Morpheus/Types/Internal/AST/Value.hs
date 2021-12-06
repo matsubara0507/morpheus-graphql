@@ -41,8 +41,14 @@ import qualified Data.Aeson as A
     object,
     pairs,
   )
+import qualified Data.Aeson.Key as Key
+  ( fromText,
+    toText,
+  )
+import qualified Data.Aeson.KeyMap as KM
+  ( toList,
+  )
 import Data.Foldable (foldr')
-import qualified Data.HashMap.Lazy as M
 import Data.Mergeable
   ( NameCollision (..),
     OrdMap,
@@ -236,7 +242,7 @@ instance A.ToJSON (Value a) where
   toJSON (List x) = A.toJSON x
   toJSON (Object fields) = A.object $ fmap toEntry (toList fields)
     where
-      toEntry (ObjectEntry name value) = unpackName name A..= A.toJSON value
+      toEntry (ObjectEntry name value) = Key.fromText (unpackName name) A..= A.toJSON value
 
   -------------------------------------------
   toEncoding (ResolvedVariable _ Variable {variableValue = ValidVariableValue x}) =
@@ -249,7 +255,7 @@ instance A.ToJSON (Value a) where
   toEncoding (List x) = A.toEncoding x
   toEncoding (Object ordMap) = A.pairs $ renderSeries encodeField (toList ordMap)
     where
-      encodeField (ObjectEntry key value) = unpackName key A..= value
+      encodeField (ObjectEntry key value) = Key.fromText (unpackName key) A..= value
 
 -- fixes GHC 8.2.2, which can't deduce (Semigroup p) from context (Monoid p)
 renderSeries :: (Semigroup p, Monoid p) => (e -> p) -> [e] -> p
@@ -268,8 +274,8 @@ replaceValue (A.String v) = mkString v
 replaceValue (A.Object v) =
   mkObject $
     fmap
-      (bimap packName replaceValue)
-      (M.toList v)
+      (bimap (packName . Key.toText) replaceValue)
+      (KM.toList v)
 replaceValue (A.Array li) = List (fmap replaceValue (V.toList li))
 replaceValue A.Null = Null
 

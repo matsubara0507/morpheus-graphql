@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 3dce255991521d81032e00ec4262638b777ddb6671974e51835f0a65fe94907f
+-- hash: 138a5070191c8eb135a0ce21fb198119ca7d4fdfc59ba27577af7d3b929a8db2
 
 name:           morpheus-graphql-benchmarks
 version:        0.18.0
@@ -46,7 +46,7 @@ benchmark morpheus-graphql-bench
   ghc-options: -eventlog -threaded -rtsopts -with-rtsopts=-N6 -O2
   build-depends:
       base >=4.7 && <5
-    , bytestring >=0.10.4 && <0.11
+    , bytestring >=0.10.4 && <0.12
     , criterion
     , graphql >=0.11
     , megaparsec >=7.0.0 && <10.0.0

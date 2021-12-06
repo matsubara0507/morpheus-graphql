@@ -14,6 +14,8 @@ where
 
 import Control.Monad.Except (MonadError (throwError))
 import qualified Data.HashMap.Lazy as HM
+import qualified Data.Aeson.Key as Key
+import qualified Data.Aeson.KeyMap as KM
 import Data.Mergeable.Internal.Merge (mergeNoDuplicates)
 import Data.Mergeable.Internal.NameCollision (NameCollision)
 import Relude
@@ -33,6 +35,12 @@ instance (Eq k, Hashable k) => IsMap k (HashMap k) where
   singleton = HM.singleton
   lookup = HM.lookup
   member = HM.member
+
+instance IsMap Key.Key KM.KeyMap where
+  unsafeFromList = KM.fromList
+  singleton = KM.singleton
+  lookup = KM.lookup
+  member = KM.member
 
 selectBy :: (MonadError e m, IsMap k c, Monad m) => e -> k -> c a -> m a
 selectBy err = selectOr (throwError err) pure

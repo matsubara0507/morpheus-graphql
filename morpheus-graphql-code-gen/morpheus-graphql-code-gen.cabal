@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: abefa3a7c152fe401ea2fdbb8e9a4607248515d8be7b1633173ba783c10c4b3b
+-- hash: 38a7f7f2878db8db465e14a72afc822cc529498a26800df19977b8e0983f31a0
 
 name:           morpheus-graphql-code-gen
 version:        0.18.0
@@ -46,7 +46,7 @@ library
   ghc-options: -Wall
   build-depends:
       base >=4.7 && <5
-    , bytestring >=0.10.4 && <0.11
+    , bytestring >=0.10.4 && <0.12
     , containers >=0.4.2.1 && <0.7
     , morpheus-graphql-core >=0.18.0 && <0.19.0
     , prettyprinter >=1.2 && <2.0
@@ -65,7 +65,7 @@ executable morpheus
   ghc-options: -Wall
   build-depends:
       base >=4.7 && <5
-    , bytestring >=0.10.4 && <0.11
+    , bytestring >=0.10.4 && <0.12
     , containers >=0.4.2.1 && <0.7
     , filepath >=1.1 && <1.5
     , morpheus-graphql-code-gen

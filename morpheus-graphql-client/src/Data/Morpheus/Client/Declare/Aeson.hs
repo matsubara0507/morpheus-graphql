@@ -17,6 +17,9 @@ where
 
 import Data.Aeson
 import Data.Aeson.Types
+import qualified Data.Aeson.KeyMap as KM
+  ( lookup,
+  )
 import qualified Data.HashMap.Lazy as H
   ( lookup,
   )
@@ -166,7 +169,7 @@ aesonUnionObject
         )
 
 takeValueType :: ((String, Object) -> Parser a) -> Value -> Parser a
-takeValueType f (Object hMap) = case H.lookup "__typename" hMap of
+takeValueType f (Object hMap) = case KM.lookup "__typename" hMap of
   Nothing -> fail "key \"__typename\" not found on object"
   Just (String x) -> pure (T.unpack x, hMap) >>= f
   Just val ->

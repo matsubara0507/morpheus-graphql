@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 0fd952b50e676d5237fe4d25935cdc978ababad30109f90046afd1b9ec23244b
+-- hash: 161c0fd0bca6617eab0343b58e0a3ed772c59dc1ec38b7a62a50639651d19018
 
 name:           morpheus-graphql-examples-servant
 version:        0.1.0
@@ -35,7 +35,7 @@ executable servant-server
   ghc-options: -Wall
   build-depends:
       base >=4.7 && <5
-    , bytestring >=0.10.4 && <0.11
+    , bytestring >=0.10.4 && <0.12
     , file-embed
     , http-media
     , morpheus-graphql >=0.18.0
